@@ -1,0 +1,24 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title }}</title>
+  <subtitle>{{ site.description }}</subtitle>
+  <link href="{{ site.url }}/feed.xml" rel="self"/>
+  <link href="{{ site.url }}/"/>
+  <id>{{ site.url }}/</id>
+  <updated>{% if collections.minutes.length %}{{ collections.minutes[0].data.meetingDate | isoDateTime }}{% else %}2026-01-01T00:00:00Z{% endif %}</updated>
+  {%- for item in collections.minutes | head(50) %}
+  {%- set t = item.data.meetingType | meetingType %}
+  <entry>
+    <title>{{ item.data.title }}</title>
+    <link href="{{ site.url }}{{ item.url }}"/>
+    <id>{{ site.url }}{{ item.url }}</id>
+    <updated>{{ item.data.meetingDate | isoDateTime }}</updated>
+    <category term="{{ t.id }}" label="{{ t.name }}"/>
+    {%- if item.data.summary %}<summary>{{ item.data.summary }}</summary>{% endif %}
+  </entry>
+  {%- endfor %}
+</feed>

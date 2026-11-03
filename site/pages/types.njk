@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: meetingTypes
+  size: 1
+  alias: type
+permalink: "/types/{{ type.id }}/"
+eleventyComputed:
+  title: "{{ type.name }}"
+  description: "{{ type.description }}"
+---
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">All minutes</a></nav>
+<div class="intro" style="--type-color: {{ type.color }}">
+  <h1 class="type-title">{{ type.name }}</h1>
+  <p class="lede">{{ type.description }}</p>
+</div>
+{%- set items = collections.minutes | ofType(type.id) %}
+{%- set fixedType = type.id %}
+{% include "minutes-browser.njk" %}

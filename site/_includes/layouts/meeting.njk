@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+---
+{%- set t = meetingType | meetingType %}
+{%- set sameType = collections.minutes | ofType(meetingType) %}
+{%- set nb = sameType | neighbors(page.url) %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">All minutes</a> <span aria-hidden="true">›</span> <a href="/types/{{ t.id }}/">{{ t.name }}</a>
+</nav>
+<article class="meeting" style="--type-color: {{ t.color }}">
+  <header class="meeting-header">
+    <span class="type-badge">{{ t.name }}</span>
+    <h1>{{ title }}</h1>
+    <dl class="meta">
+      <div><dt>Date</dt><dd><time datetime="{{ meetingDate }}">{{ meetingDate | formatDate("full") }}</time>{% if time %}, {{ time }}{% endif %}</dd></div>
+      {%- if location %}<div><dt>Location</dt><dd>{{ location }}</dd></div>{% endif %}
+      {%- if presiding %}<div><dt>Presiding</dt><dd>{{ presiding }}</dd></div>{% endif %}
+      {%- if recorder %}<div><dt>Recorded by</dt><dd>{{ recorder }}</dd></div>{% endif %}
+      {%- if approved_on %}<div><dt>Approved</dt><dd>{{ approved_on | isoDate | formatDate }}</dd></div>{% endif %}
+      {%- if attendees and attendees.length %}<div class="meta-wide"><dt>Present</dt><dd>{{ attendees | join(", ") }}</dd></div>{% endif %}
+      {%- if absent and absent.length %}<div class="meta-wide"><dt>Absent</dt><dd>{{ absent | join(", ") }}</dd></div>{% endif %}
+      {%- if guests and guests.length %}<div class="meta-wide"><dt>Guests</dt><dd>{{ guests | join(", ") }}</dd></div>{% endif %}
+    </dl>
+    {%- if documents and documents.length %}
+    <div class="documents">
+      <h2>Documents</h2>
+      <ul>
+        {%- for d in documents %}<li><a href="{{ d.url }}">{{ d.title }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </header>
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+</article>
+<nav class="pager" aria-label="More {{ t.name }} minutes">
+  {%- if nb.older %}<a class="pager-older" href="{{ nb.older.url }}"><span>‹ Previous {{ t.name }}</span>{{ nb.older.data.meetingDate | formatDate }}</a>{% else %}<span></span>{% endif %}
+  {%- if nb.newer %}<a class="pager-newer" href="{{ nb.newer.url }}"><span>Next {{ t.name }} ›</span>{{ nb.newer.data.meetingDate | formatDate }}</a>{% endif %}
+</nav>

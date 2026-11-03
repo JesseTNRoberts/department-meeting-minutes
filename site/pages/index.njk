@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+permalink: /
+title: Department Meeting Minutes
+---
+<div class="intro">
+  <h1>{{ site.title }}</h1>
+  <p class="lede">{{ site.description }}</p>
+  <ul class="type-cards">
+    {%- for t in meetingTypes %}
+    {%- set count = (collections.minutes | ofType(t.id)).length %}
+    <li style="--type-color: {{ t.color }}">
+      <a href="/types/{{ t.id }}/">
+        <span class="type-card-name">{{ t.name }}</span>
+        <span class="type-card-count">{{ count }} meeting{% if count != 1 %}s{% endif %}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+{%- set items = collections.minutes %}
+{%- set fixedType = false %}
+{% include "minutes-browser.njk" %}

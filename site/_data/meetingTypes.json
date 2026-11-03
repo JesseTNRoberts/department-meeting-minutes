@@ -1,0 +1,20 @@
+[
+  {
+    "id": "faculty",
+    "name": "Faculty Meeting",
+    "description": "Regular meetings of the full department faculty.",
+    "color": "#1f4e79"
+  },
+  {
+    "id": "curriculum",
+    "name": "Curriculum Committee",
+    "description": "Course proposals, program changes, and catalog review.",
+    "color": "#2e7d5b"
+  },
+  {
+    "id": "graduate",
+    "name": "Graduate Committee",
+    "description": "Graduate program policy, admissions, and student progress.",
+    "color": "#8a4b0f"
+  }
+]

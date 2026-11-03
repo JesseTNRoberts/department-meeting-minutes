@@ -1,0 +1,20 @@
+{
+  "name": "department-meeting-minutes",
+  "private": true,
+  "description": "Public minutes of department meetings, published with GitHub Pages.",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/validate.mjs && eleventy",
+    "start": "eleventy --serve",
+    "new": "node scripts/new-minutes.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesseTNRoberts/department-meeting-minutes.git"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.7",
+    "gray-matter": "^4.0.3"
+  }
+}

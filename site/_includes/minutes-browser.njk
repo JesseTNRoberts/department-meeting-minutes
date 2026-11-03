@@ -1,0 +1,80 @@
+{#- Filterable list of minutes. Expects `items` and optionally `fixedType`. -#}
+<section class="browser" data-browser {% if fixedType %}data-fixed-type="{{ fixedType }}"{% endif %}>
+  <form class="filters" role="search" aria-label="Filter minutes" data-filters>
+    <div class="field field-search">
+      <label for="q">Search</label>
+      <input id="q" name="q" type="search" placeholder="Words in the title or the minutes" autocomplete="off">
+    </div>
+    {%- if not fixedType %}
+    <fieldset class="field field-types">
+      <legend>Meeting type</legend>
+      <div class="chips">
+        {%- for t in meetingTypes %}
+        <label class="chip" style="--type-color: {{ t.color }}">
+          <input type="checkbox" name="type" value="{{ t.id }}">
+          <span>{{ t.name }}</span>
+        </label>
+        {%- endfor %}
+      </div>
+    </fieldset>
+    {%- endif %}
+    <div class="field-row">
+      <div class="field">
+        <label for="year">Year</label>
+        <select id="year" name="year">
+          <option value="">Any year</option>
+          {%- for y in items | years %}
+          <option value="{{ y }}">{{ y }}</option>
+          {%- endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="from">From</label>
+        <input id="from" name="from" type="date">
+      </div>
+      <div class="field">
+        <label for="to">To</label>
+        <input id="to" name="to" type="date">
+      </div>
+      <div class="field">
+        <label for="sort">Order</label>
+        <select id="sort" name="sort">
+          <option value="desc">Newest first</option>
+          <option value="asc">Oldest first</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-status">
+      <p aria-live="polite" data-count>{{ items.length }} meeting{% if items.length != 1 %}s{% endif %}</p>
+      <button type="reset" class="link-button" data-clear>Clear filters</button>
+    </div>
+  </form>
+
+  {%- if items.length %}
+  <div class="results" data-results>
+    {%- for year in items | years %}
+    <section class="year-group" data-year-group="{{ year }}">
+      <h2 class="year-heading">{{ year }}</h2>
+      <ol class="minutes-list">
+        {%- for item in items | inYear(year) %}
+        {%- set t = item.data.meetingType | meetingType %}
+        <li class="minutes-item" data-type="{{ t.id }}" data-date="{{ item.data.meetingDate }}" data-url="{{ item.url }}" style="--type-color: {{ t.color }}">
+          <time class="item-date" datetime="{{ item.data.meetingDate }}">
+            <span class="item-month">{{ item.data.meetingDate | formatDate("short") | replace(", " + year, "") }}</span>
+          </time>
+          <div class="item-body">
+            <a class="item-title" href="{{ item.url }}">{{ item.data.title }}</a>
+            <span class="type-badge">{{ t.name }}</span>
+            {%- if item.data.summary %}<p class="item-summary">{{ item.data.summary }}</p>{% endif %}
+          </div>
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endfor %}
+  </div>
+  <p class="empty" data-empty hidden>No minutes match these filters. <button type="button" class="link-button" data-clear>Clear filters</button></p>
+  {%- else %}
+  <p class="empty">No minutes have been published here yet.</p>
+  {%- endif %}
+</section>
