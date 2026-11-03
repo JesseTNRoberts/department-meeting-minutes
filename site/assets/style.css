@@ -44,10 +44,13 @@ h1, h2, h3 { font-family: var(--serif); line-height: 1.2; font-weight: 600; }
 /* Header */
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
-.header-inner { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "brand add" "nav nav"; align-items: center; gap: 10px 24px; padding-top: 14px; padding-bottom: 10px; }
+.header-inner { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "brand add" "nav nav" "picker picker"; align-items: center; gap: 10px 24px; padding-top: 14px; padding-bottom: 10px; }
 .brand { grid-area: brand; }
 .header-inner nav { grid-area: nav; margin: 0 -12px; }
 .add-link { grid-area: add; justify-self: end; }
+.nav-picker { grid-area: picker; display: none; align-items: center; gap: 10px; }
+.nav-picker label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+.nav-picker select { flex: 1; min-width: 0; font: inherit; font-weight: 600; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 44px; }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
 .brand-mark { width: 34px; height: 34px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), #2e7d5b); flex: none; }
 .brand-dept { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
@@ -191,10 +194,17 @@ main.wrap { padding-top: 32px; padding-bottom: 48px; min-height: 60vh; }
   .minutes-item { grid-template-columns: 1fr; gap: 4px; }
   .item-date { border-left-width: 3px; }
   .header-inner { padding-top: 12px; padding-bottom: 10px; }
-  .nav { overflow-x: auto; flex-wrap: nowrap; }
+  /* Phones: one dropdown instead of a row of links that runs off the screen.
+     Without JavaScript the links wrap onto extra lines instead. */
+  .has-nav-picker .header-inner nav { display: none; }
+  .has-nav-picker .nav-picker:not([hidden]) { display: flex; }
   .nav a { white-space: nowrap; }
-  .type-cards { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); overflow-x: auto; gap: 8px; margin-bottom: 20px; padding-bottom: 4px; }
-  .type-cards a { padding: 10px 12px; font-size: 0.92rem; }
+  .type-cards { display: none; }
+  .brand-title { font-size: 1.05rem; white-space: nowrap; }
+  .brand { gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; }
+  .add-link { padding: 7px 12px; }
+  .intro h1 { margin-bottom: 4px; }
   .filters { padding: 14px; }
   .add-layout, .grid-2 { grid-template-columns: 1fr; }
   .add-help { position: static; }

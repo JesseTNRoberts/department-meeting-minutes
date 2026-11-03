@@ -27,6 +27,10 @@
           {%- endfor %}
         </ul>
       </nav>
+      <div class="nav-picker" data-nav-picker hidden>
+        <label for="nav-select">Meeting type</label>
+        <select id="nav-select"></select>
+      </div>
       <a class="add-link" href="/add/" {% if page.url == "/add/" %}aria-current="page"{% endif %}>+ Add minutes</a>
     </div>
   </header>

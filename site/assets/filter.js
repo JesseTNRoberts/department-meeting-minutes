@@ -4,6 +4,25 @@
   "use strict";
 
   document.querySelectorAll("[data-browser]").forEach(setUp);
+  setUpNavPicker();
+
+  // On phones the meeting-type links become one dropdown (see style.css).
+  function setUpNavPicker() {
+    const picker = document.querySelector("[data-nav-picker]");
+    const links = document.querySelectorAll(".nav a");
+    if (!picker || !links.length) return;
+    const select = picker.querySelector("select");
+    let current = false;
+    links.forEach((a) => {
+      const opt = new Option(a.textContent.trim() === "All" ? "All meeting types" : a.textContent.trim(), a.href);
+      if (a.getAttribute("aria-current") === "page") { opt.selected = true; current = true; }
+      select.add(opt);
+    });
+    if (!current) select.add(new Option("Choose a meeting type…", "", true, true), 0);
+    select.addEventListener("change", () => { if (select.value) location.href = select.value; });
+    picker.hidden = false;
+    document.documentElement.classList.add("has-nav-picker");
+  }
 
   function setUp(browser) {
     const form = browser.querySelector("[data-filters]");
