@@ -26,12 +26,14 @@ templates/minutes-template.md ← starting point for new minutes
 
 1. **Pages:** Settings → Pages → Source: **GitHub Actions**.
 2. **Faculty access:** any faculty member may submit minutes. Each needs a free GitHub account. Add them under Settings → Collaborators and teams → **Add people** with the **Write** role. If the department has many faculty or changes often, move the repo into a GitHub organization (Settings → Transfer) and add everyone to a single `faculty` team. Then adding or removing a person is one step, and you can give the team Write access once.
-3. **Protect `main`:** Settings → Rules → Rulesets → New branch ruleset targeting `main`. Turn on:
-   - Require a pull request before merging (1 approval)
-   - Require status checks to pass → add **check**
-   - Block force pushes
+3. **Protect `main`:** Settings → Rules → Rulesets → New ruleset → **Import a ruleset**, and choose [`.github/rulesets/protect-main.json`](.github/rulesets/protect-main.json) (download it from GitHub first). It sets up:
+   - a pull request with one approval from someone other than the author for every change
+   - the **check** status check must pass
+   - no force pushes, and `main` can't be deleted
+   - repository admins may merge their own pull requests without a second approval, but can't push directly
 
-   With this on, nothing reaches the public site until a second person has reviewed it. This matters because every faculty member has write access. Leave **Bypass list** empty so the rule applies to everyone.
+   With this on, nothing reaches the public site until a second person has reviewed it. This matters because every faculty member has write access.
+
 4. **Reviewers (optional):** fill in `.github/CODEOWNERS` so each committee's chair reviews that committee's minutes.
 5. **Branding:** set the department name and contact email in `site/_data/site.js`.
 
