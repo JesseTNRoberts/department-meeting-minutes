@@ -1,5 +1,7 @@
 # Adding minutes
 
+Any faculty member may submit minutes. You need a free [GitHub account](https://github.com/signup) that has been added to this repository. Send your GitHub username to the site maintainer to be added.
+
 This repository is **public** and everything merged into `main` goes straight onto the website. Only add minutes **after the committee has approved them**, and never include confidential material (student records, personnel matters, closed-session discussion).
 
 ## The easiest way: the "Add minutes" page

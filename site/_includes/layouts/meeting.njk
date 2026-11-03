@@ -38,4 +38,4 @@ layout: layouts/base.njk
   {%- if nb.older %}<a class="pager-older" href="{{ nb.older.url }}"><span>‹ Previous {{ t.name }}</span>{{ nb.older.data.meetingDate | formatDate }}</a>{% else %}<span></span>{% endif %}
   {%- if nb.newer %}<a class="pager-newer" href="{{ nb.newer.url }}"><span>Next {{ t.name }} ›</span>{{ nb.newer.data.meetingDate | formatDate }}</a>{% endif %}
 </nav>
-<p class="edit-link"><a href="{{ page.inputPath | githubEditUrl }}">Edit on GitHub</a> (for authorized editors: corrections go through the same review as new minutes)</p>
+<p class="edit-link"><a href="{{ page.inputPath | githubEditUrl }}">Edit on GitHub</a> (for faculty: corrections go through the same review as new minutes)</p>

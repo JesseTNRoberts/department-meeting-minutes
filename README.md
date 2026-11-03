@@ -25,13 +25,13 @@ templates/minutes-template.md ← starting point for new minutes
 ## Maintainer setup (one time)
 
 1. **Pages:** Settings → Pages → Source: **GitHub Actions**.
-2. **Collaborators:** Settings → Collaborators and teams. Give secretaries and chairs the **Write** role.
+2. **Faculty access:** any faculty member may submit minutes. Each needs a free GitHub account. Add them under Settings → Collaborators and teams → **Add people** with the **Write** role. If the department has many faculty or changes often, move the repo into a GitHub organization (Settings → Transfer) and add everyone to a single `faculty` team. Then adding or removing a person is one step, and you can give the team Write access once.
 3. **Protect `main`:** Settings → Rules → Rulesets → New branch ruleset targeting `main`. Turn on:
    - Require a pull request before merging (1 approval)
    - Require status checks to pass → add **check**
    - Block force pushes
 
-   With this on, nothing reaches the public site until someone has reviewed it.
+   With this on, nothing reaches the public site until a second person has reviewed it. This matters because every faculty member has write access. Leave **Bypass list** empty so the rule applies to everyone.
 4. **Reviewers (optional):** fill in `.github/CODEOWNERS` so each committee's chair reviews that committee's minutes.
 5. **Branding:** set the department name and contact email in `site/_data/site.js`.
 

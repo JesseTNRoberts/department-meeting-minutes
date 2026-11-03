@@ -8,7 +8,7 @@ pageScript: /assets/add-minutes.js
 ---
 <div class="intro">
   <h1>Add minutes</h1>
-  <p class="lede">For department secretaries and committee chairs. Fill in the form, or upload the minutes as a Word file. GitHub then opens with the new file ready to submit for review.</p>
+  <p class="lede">Any faculty member can submit approved minutes. Fill in the form, or upload the minutes as a Word file. GitHub then opens with the new file ready to submit for review.</p>
 </div>
 
 <div class="add-layout">
@@ -138,7 +138,8 @@ pageScript: /assets/add-minutes.js
       <li>An automatic check makes sure the file is in order. A reviewer approves it.</li>
       <li>Once it's merged, the minutes appear on this site within a couple of minutes.</li>
     </ol>
-    <p>Only people who have been given access to the <a href="{{ site.repo }}">repository</a> can submit minutes. If GitHub asks you to “fork” the repository, you don't have access yet. Ask the site maintainer to add you.</p>
+    <p>You'll need a free GitHub account that has been added to the <a href="{{ site.repo }}">repository</a>. If you don't have access yet, send your GitHub username to the site maintainer{% if site.contact %} (<a href="mailto:{{ site.contact }}">{{ site.contact }}</a>){% endif %}.</p>
+    <p>If GitHub asks you to “fork” the repository, you haven't been added yet. Until you are, you can click <strong>Download file</strong> and email it to the maintainer.</p>
     <p>Nothing you type here is saved or sent anywhere until you continue to GitHub.</p>
   </aside>
 </div>
