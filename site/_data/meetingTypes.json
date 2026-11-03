@@ -16,5 +16,11 @@
     "name": "Graduate Committee",
     "description": "Graduate program policy, admissions, and student progress.",
     "color": "#8a4b0f"
+  },
+  {
+    "id": "ai-faculty",
+    "name": "AI Faculty Meeting",
+    "description": "Meetings of the AI program faculty: curriculum, students and teaching plans.",
+    "color": "#5b3a8a"
   }
 ]
