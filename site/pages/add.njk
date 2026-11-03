@@ -1,0 +1,144 @@
+---
+layout: layouts/base.njk
+permalink: /add/
+title: Add minutes
+description: Prepare approved minutes for publication.
+eleventyExcludeFromCollections: true
+pageScript: /assets/add-minutes.js
+---
+<div class="intro">
+  <h1>Add minutes</h1>
+  <p class="lede">For department secretaries and committee chairs. Fill in the form, or upload the minutes as a Word file. GitHub then opens with the new file ready to submit for review.</p>
+</div>
+
+<div class="add-layout">
+  <form class="add-form" id="add-form" novalidate
+        data-repo="{{ site.repo }}">
+    <section class="panel">
+      <h2>Meeting</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label for="f-type">Meeting type <span class="req">required</span></label>
+          <select id="f-type" name="type" required>
+            <option value="">Choose…</option>
+            {%- for t in meetingTypes %}
+            <option value="{{ t.id }}">{{ t.name }}</option>
+            {%- endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-date">Meeting date <span class="req">required</span></label>
+          <input id="f-date" name="date" type="date" required>
+        </div>
+      </div>
+      <p class="notice" id="duplicate-notice" hidden>
+        Minutes for this meeting type and date are already published. If this is a <strong>second meeting the same day</strong>, give it a short label (like “special”). If you're <strong>correcting</strong> the published minutes, use the <em>Edit on GitHub</em> link at the bottom of that meeting's page instead.
+      </p>
+      <div class="field" id="label-field" hidden>
+        <label for="f-label">Label for a second meeting that day</label>
+        <input id="f-label" name="label" type="text" placeholder="special" pattern="[a-z0-9-]+">
+        <p class="hint">Lowercase letters, numbers and dashes. The file will be named like 2026-11-02-special.md.</p>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="f-approved">Date approved</label>
+          <input id="f-approved" name="approved_on" type="date">
+        </div>
+        <div class="field">
+          <label for="f-time">Time</label>
+          <input id="f-time" name="time" type="text" placeholder="3:00–4:30 pm">
+        </div>
+        <div class="field">
+          <label for="f-location">Location</label>
+          <input id="f-location" name="location" type="text" placeholder="Room 214 and Zoom">
+        </div>
+        <div class="field">
+          <label for="f-presiding">Presiding</label>
+          <input id="f-presiding" name="presiding" type="text">
+        </div>
+        <div class="field">
+          <label for="f-recorder">Recorded by</label>
+          <input id="f-recorder" name="recorder" type="text">
+        </div>
+        <div class="field">
+          <label for="f-title">Custom title <span class="opt">optional</span></label>
+          <input id="f-title" name="title" type="text" placeholder="Leave blank for “Meeting type — date”">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-summary">One-sentence summary</label>
+        <input id="f-summary" name="summary" type="text" placeholder="Approved the spring schedule; discussed the robotics search.">
+        <p class="hint">Shown in the list of minutes and used by search.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>People</h2>
+      <div class="field">
+        <label for="f-attendees">Present</label>
+        <textarea id="f-attendees" name="attendees" rows="2" placeholder="A. Lee, B. Ortiz, C. Wu"></textarea>
+        <p class="hint">Separate names with commas or put one per line.</p>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="f-absent">Absent</label>
+          <textarea id="f-absent" name="absent" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-guests">Guests</label>
+          <textarea id="f-guests" name="guests" rows="2"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Minutes</h2>
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="f-file" accept=".docx,.md,.markdown,.txt" class="visually-hidden">
+        <label for="f-file" class="button button-secondary">Upload a file…</label>
+        <span>or drop a <strong>Word (.docx)</strong>, Markdown or text file here</span>
+      </div>
+      <p class="hint" id="file-status" aria-live="polite"></p>
+      <div class="field">
+        <label for="f-body">Text of the minutes <span class="req">required</span></label>
+        <textarea id="f-body" name="body" rows="16" required placeholder="Paste from Word or Google Docs (headings, lists and tables are kept), upload a file above, or type here."></textarea>
+        <p class="hint">Uses <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">Markdown</a>: <code>## Heading</code>, <code>- bullet</code>, <code>**bold**</code>.</p>
+      </div>
+      <div class="field">
+        <label for="f-documents">Linked documents <span class="opt">optional</span></label>
+        <textarea id="f-documents" name="documents" rows="2" placeholder="Agenda | https://…&#10;Signed minutes (PDF) | https://…"></textarea>
+        <p class="hint">One per line: a name, a vertical bar, then the web address.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <label class="check">
+        <input type="checkbox" id="f-confirm" name="confirm" required>
+        <span>These minutes have been <strong>approved</strong>, and they contain nothing confidential (student information, personnel matters, closed-session items). Once merged, they will be public.</span>
+      </label>
+      <div class="errors" id="form-errors" role="alert" hidden></div>
+      <div class="actions">
+        <button type="submit" class="button">Continue to GitHub</button>
+        <button type="button" class="button button-secondary" id="download-btn">Download file</button>
+        <button type="button" class="link-button" id="preview-btn" aria-expanded="false" aria-controls="preview">Show the file</button>
+      </div>
+      <pre class="preview" id="preview" hidden></pre>
+      <p class="notice" id="handoff-notice" hidden></p>
+    </section>
+  </form>
+
+  <a hidden data-vendor="mammoth" href="/assets/vendor/mammoth.browser.min.js"></a>
+  <a hidden data-vendor="turndown" href="/assets/vendor/turndown.js"></a>
+  <a hidden data-vendor="gfm" href="/assets/vendor/turndown-plugin-gfm.js"></a>
+  <aside class="add-help">
+    <h2>What happens next</h2>
+    <ol>
+      <li>GitHub opens in a new tab with the minutes file filled in. Sign in if it asks you to.</li>
+      <li>Click <strong>Commit changes…</strong>, then <strong>Propose changes</strong>, then <strong>Create pull request</strong>.</li>
+      <li>An automatic check makes sure the file is in order. A reviewer approves it.</li>
+      <li>Once it's merged, the minutes appear on this site within a couple of minutes.</li>
+    </ol>
+    <p>Only people who have been given access to the <a href="{{ site.repo }}">repository</a> can submit minutes. If GitHub asks you to “fork” the repository, you don't have access yet. Ask the site maintainer to add you.</p>
+    <p>Nothing you type here is saved or sent anywhere until you continue to GitHub.</p>
+  </aside>
+</div>

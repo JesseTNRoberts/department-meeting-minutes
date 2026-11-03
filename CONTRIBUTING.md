@@ -2,7 +2,13 @@
 
 This repository is **public** and everything merged into `main` goes straight onto the website. Only add minutes **after the committee has approved them**, and never include confidential material (student records, personnel matters, closed-session discussion).
 
-## The quick way: in your browser
+## The easiest way: the "Add minutes" page
+
+Go to **[the Add minutes page](https://jessetnroberts.github.io/department-meeting-minutes/add/)** (the **+ Add minutes** button at the top of the site). Pick the meeting type and date, fill in the details, and either paste the minutes (formatting from Word or Google Docs is kept) or upload a Word (.docx) file. Then click **Continue to GitHub**. GitHub opens with the file ready: click **Commit changes…**, then **Propose changes**, then **Create pull request**. A reviewer merges it, and the minutes go live.
+
+To correct minutes that are already published, use the **Edit on GitHub** link at the bottom of that meeting's page.
+
+## Another way: straight on GitHub
 
 1. Click the link for your meeting type below. It opens a new file on GitHub that already contains the minutes template.
 

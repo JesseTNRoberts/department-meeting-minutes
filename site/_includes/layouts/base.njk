@@ -27,6 +27,7 @@
           {%- endfor %}
         </ul>
       </nav>
+      <a class="add-link" href="/add/" {% if page.url == "/add/" %}aria-current="page"{% endif %}>+ Add minutes</a>
     </div>
   </header>
   <main id="main" class="wrap">
@@ -39,5 +40,8 @@
   </footer>
   <a href="/search-index.json" data-search-index hidden tabindex="-1" aria-hidden="true"></a>
   <script src="/assets/filter.js" defer></script>
+  {%- if pageScript %}
+  <script src="{{ pageScript }}" defer></script>
+  {%- endif %}
 </body>
 </html>

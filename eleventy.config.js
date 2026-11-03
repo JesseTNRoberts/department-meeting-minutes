@@ -1,4 +1,5 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
+import site from "./site/_data/site.js";
 import { loadMeetingTypes, parseMinutesPath, formatDate, toIsoDate } from "./scripts/lib.mjs";
 
 const meetingTypes = loadMeetingTypes();
@@ -17,6 +18,12 @@ export default function (eleventyConfig) {
   }
 
   eleventyConfig.addPassthroughCopy({ "site/assets": "assets" });
+  // Word-to-Markdown conversion for the "Add minutes" page (loaded only when a .docx is chosen).
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/mammoth/mammoth.browser.min.js": "assets/vendor/mammoth.browser.min.js",
+    "node_modules/turndown/lib/turndown.browser.umd.js": "assets/vendor/turndown.js",
+    "node_modules/turndown-plugin-gfm/dist/turndown-plugin-gfm.js": "assets/vendor/turndown-plugin-gfm.js",
+  });
   eleventyConfig.addWatchTarget("site/assets/");
 
   eleventyConfig.addCollection("minutes", (api) =>
@@ -41,6 +48,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addFilter("head", (arr, n) => arr.slice(0, n));
   eleventyConfig.addFilter("isoDate", toIsoDate);
+  eleventyConfig.addFilter("githubEditUrl", (inputPath) => `${site.repo}/edit/main/${inputPath.replace(/^\.\//, "")}`);
   eleventyConfig.addFilter("isoDateTime", (iso) => `${iso}T00:00:00Z`);
 
   return {

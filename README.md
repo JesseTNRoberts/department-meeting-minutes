@@ -5,7 +5,7 @@ Approved public minutes of department meetings, published at
 
 On the site you can browse minutes by meeting type, and filter by type, year, date range and words in the text. Filtered views have their own web address, so you can share a link to, say, "Curriculum Committee, 2026". The site also has an [Atom feed](https://jessetnroberts.github.io/department-meeting-minutes/feed.xml) of new minutes.
 
-**To add minutes, see [CONTRIBUTING.md](CONTRIBUTING.md).**
+**To add minutes**, use the [Add minutes page](https://jessetnroberts.github.io/department-meeting-minutes/add/) on the site, or see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## How it works
 
